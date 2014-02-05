@@ -1,4 +1,4 @@
-#Fm.EHF.EHFUtility
+#EHFUtility
 
 EHFUtility is a .NET-library to simplify EHF-related tasks in .NET. Use this utility to:
 - Validate EHF-documents using DIFIs validationservice
