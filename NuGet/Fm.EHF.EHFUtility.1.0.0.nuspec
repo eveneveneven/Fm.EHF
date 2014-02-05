@@ -30,5 +30,7 @@
         <file src="..\Fm.EHF\bin\Release\STARTLibrary45.dll" target="lib\STARTLibrary45.dll" />
         <file src="..\Fm.EHF\bin\Release\STARTLibrary45.xml" target="lib\STARTLibrary45.xml" />
         <file src="..\Documentation\readme.txt" target="readme.txt" />
+        <file src="..\Fm.EHF\Web.config.install.xdt" target="Web.config.install.xdt" />
+        <file src="..\Fm.EHF\Web.config.uninstall.xdt" target="Web.config.uninstall.xdt" />
     </files>
 </package>
