@@ -78,6 +78,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Web.config.install.xdt" />
+    <None Include="Web.config.uninstall.xdt" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
