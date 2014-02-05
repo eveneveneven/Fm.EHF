@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Mono.Security</id>
+    <version>3.2.3.0</version>
+    <title>Mono.Security</title>
+    <authors>Sebastien Pouliot, Mono</authors>
+    <owners>Sebastien Pouliot, Mono</owners>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.html</licenseUrl>
+    <projectUrl>http://mono-project.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Mono.Security containing utilities like Authenticode.</description>
+    <summary>Mono.Security containing utilities like Authenticode.</summary>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <tags>Mono Security Authenticode</tags>
+  </metadata>
+</package>

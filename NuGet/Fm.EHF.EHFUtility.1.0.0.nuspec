@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Fm.EHF.EHFUtility</id>
+        <version>1.0.0</version>
+        <title>Fm.EHF.EHFUtility</title>
+        <authors>Fylkesmannen i Sogn og fjordane</authors>
+        <iconUrl>http://fylkesmannen.no/fm.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>EHFUtility is a library to simplify EHF-related tasks in .NET. Use this utility to validate EHF/PEPPOL-documents using DIFIs validationservice, send PEPPOL-documents, and perform SMP and SML lookup</description>
+        <summary />
+        <language />
+        <dependencies>
+            <dependency id="Mono.Security" version="3.2.3.0" />
+            <dependency id="log4net" version="2.0.3" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="..\Fm.EHF\Certificates\Installation\peppol-ap.cer" target="content\Certificates\Installation\peppol-ap.cer" />
+        <file src="..\Fm.EHF\Certificates\Installation\peppol-root.cer" target="content\Certificates\Installation\peppol-root.cer" />
+        <file src="..\Fm.EHF\Certificates\Installation\peppol-smp.cer" target="content\Certificates\Installation\peppol-smp.cer" />
+        <file src="..\Fm.EHF\Certificates\Installation\peppol-sts.cer" target="content\Certificates\Installation\peppol-sts.cer" />
+        <file src="..\Fm.EHF\Certificates\truststore-production.pfx" target="content\Certificates\truststore-production.pfx" />
+        <file src="..\Fm.EHF\SampleData\BII04_T10_EHF-v1.5_invoice.xml" target="content\SampleData\BII04_T10_EHF-v1.5_invoice.xml" />
+        <file src="..\Fm.EHF\SampleData\fminvoice.xml" target="content\SampleData\fminvoice.xml" />
+        <file src="..\Fm.EHF\bin\Release\Fm.EHF.dll" target="lib\Fm.EHF.dll" />
+        <file src="..\Fm.EHF\bin\Release\Fm.EHF.pdb" target="lib\Fm.EHF.pdb" />
+        <file src="..\Fm.EHF\bin\Release\log4net.dll" target="lib\log4net.dll" />
+        <file src="..\Fm.EHF\bin\Release\log4net.xml" target="lib\log4net.xml" />
+        <file src="..\Fm.EHF\bin\Release\Mono.Security.dll" target="lib\Mono.Security.dll" />
+        <file src="..\Fm.EHF\bin\Release\STARTLibrary45.dll" target="lib\STARTLibrary45.dll" />
+        <file src="..\Fm.EHF\bin\Release\STARTLibrary45.pdb" target="lib\STARTLibrary45.pdb" />
+        <file src="..\Fm.EHF\bin\Release\STARTLibrary45.xml" target="lib\STARTLibrary45.xml" />
+        <file src="..\Documentation\readme.txt" target="readme.txt" />
+    </files>
+</package>
