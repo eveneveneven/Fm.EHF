@@ -24,12 +24,10 @@
         <file src="..\Fm.EHF\SampleData\BII04_T10_EHF-v1.5_invoice.xml" target="content\SampleData\BII04_T10_EHF-v1.5_invoice.xml" />
         <file src="..\Fm.EHF\SampleData\fminvoice.xml" target="content\SampleData\fminvoice.xml" />
         <file src="..\Fm.EHF\bin\Release\Fm.EHF.dll" target="lib\Fm.EHF.dll" />
-        <file src="..\Fm.EHF\bin\Release\Fm.EHF.pdb" target="lib\Fm.EHF.pdb" />
         <file src="..\Fm.EHF\bin\Release\log4net.dll" target="lib\log4net.dll" />
         <file src="..\Fm.EHF\bin\Release\log4net.xml" target="lib\log4net.xml" />
         <file src="..\Fm.EHF\bin\Release\Mono.Security.dll" target="lib\Mono.Security.dll" />
         <file src="..\Fm.EHF\bin\Release\STARTLibrary45.dll" target="lib\STARTLibrary45.dll" />
-        <file src="..\Fm.EHF\bin\Release\STARTLibrary45.pdb" target="lib\STARTLibrary45.pdb" />
         <file src="..\Fm.EHF\bin\Release\STARTLibrary45.xml" target="lib\STARTLibrary45.xml" />
         <file src="..\Documentation\readme.txt" target="readme.txt" />
     </files>
