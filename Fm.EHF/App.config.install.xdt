@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- For more information on using transformations 
+     see the web.config examples at http://go.microsoft.com/fwlink/?LinkId=214134. -->
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <configSections>
+    <section xdt:Locator="Match(name)" xdt:Transform="Remove" name="peppol.certificates"/>
+    <section xdt:Locator="Match(name)" xdt:Transform="Insert" name="peppol.certificates" type="STARTLibrary.src.eu.peppol.start.security.configuration.CertificatesConfigurationSection, STARTLibrary45"/>
+  </configSections>
+  
+  
+  <subscriptionConfiguration xdt:Transform="InsertIfMissing"
+    subscriptionHandler="Fm.Subscription.SendSubscriptionMail, Fm.Subscription"
+    subscriptionMailSubject="Siste nytt"    
+    showUnsubscribeLink="True" 
+    imageThumbnailWidth="100"
+    />
+
+  <system.serviceModel xdt:Transform="Insert">
+    <diagnostics>
+      <messageLogging logEntireMessage="true" logMalformedMessages="true"
+          logMessagesAtTransportLevel="true" />
+    </diagnostics>
+    <behaviors>
+      <endpointBehaviors>
+        <behavior name="PeppolClientBehavior" />
+      </endpointBehaviors>
+    </behaviors>
+    <bindings>
+      <customBinding>
+        <binding name="CusomSecureBinding" closeTimeout="00:02:00" openTimeout="00:02:00"
+            sendTimeout="00:10:00">
+          <reliableSession flowControlEnabled="false" reliableMessagingVersion="WSReliableMessaging11" />
+          <security defaultAlgorithmSuite="Basic128" allowSerializedSigningTokenOnReply="true"
+              enableUnsecuredResponse="false" authenticationMode="MutualCertificateDuplex"
+              requireDerivedKeys="false" securityHeaderLayout="Lax" allowInsecureTransport="false"
+              messageProtectionOrder="SignBeforeEncrypt" messageSecurityVersion="WSSecurity10WSTrust13WSSecureConversation13WSSecurityPolicy12BasicSecurityProfile10" />
+          <mtomMessageEncoding messageVersion="Soap11WSAddressing10" maxBufferSize="2147483647">
+            <readerQuotas maxDepth="2147483647" maxStringContentLength="2147483647"
+                maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647" />
+          </mtomMessageEncoding>
+          <httpsTransport maxBufferPoolSize="2147483647" maxReceivedMessageSize="2147483647"
+              hostNameComparisonMode="WeakWildcard" maxBufferSize="2147483647" />
+        </binding>
+      </customBinding>
+    </bindings>
+    <client>
+      <endpoint address="https://yourdomain.com/oxalis/accessPointService"
+          behaviorConfiguration="PeppolClientBehavior" binding="customBinding"
+          bindingConfiguration="CusomSecureBinding" contract="accesspointService.Resource"
+          name="SecurePeppolClient" kind="" endpointConfiguration="" />
+    </client>
+  </system.serviceModel>
+  
+  <peppol.certificates xdt:Transform="InsertIfMissing">
+    <validation>
+      <!-- Thumbprints for:         
+            - PEPPOL Root TEST CA
+            - PEPPOL SERVICE METADATA PUBLISHER TEST CA
+            - PEPPOL ACCESS POINT TEST CA 
+            
+        Disse sertifikata vert brukt til å validere sertifikat. det er rett og slett alle rot-sertifikata vi trenger for å validere sertifikat fra Evry, difi sin smp, vår oxalis, etc.
+        Root-sertifikata er lagra i truststore-production.pfx
+            -->
+      <add name="MyRootCertificates"
+           rootCACertificateThumbprint="C55F371D9B3C3A54A06FD51E02E43F9E90F6D65C"
+           intermediateSmpCACertificateThumbprint="9C200AB2044F67BA89D9ADE2180CCDE878639470"
+           intermediateAcessPointCACertificateThumbprint="696D7543E15F84A32A1121531D0551BCB3AAEA50" />
+    </validation>
+    <serviceCredentials>
+      <add serviceName="SecurePeppolClient">
+        <!-- truststore inneheld alle root-sertifikat fra PEPPOL. -->
+        <serviceCertificate filename="Certificates\truststore-production.pfx" password="peppol" />
+      </add>
+    </serviceCredentials>
+    <clientCredentials>
+      <add endpointName="SecurePeppolClient">
+        <!-- clientCertificate her identifiserer klienten overfor andre aksesspunkt. Vi trenger private key og virksomheten sitt sertifikat fra PEPPOL for å signere meldinger + identifisere klient-->
+        <clientCertificate filename="Certificates\privateKeystore.pfx" password="changeit" />
+
+        <!-- serviceCertificate her identifiserer servicen/aksesspunktet vi snakker med. Sertifikatet her brukes mot aksesspunkt/endpoint konfigurert i WCF-konfigurasjon. Når vi snakker med andre aksesspunkt laster vi ned public key fra peppol sin SML eller SMP e.l., og sertifikatet her blir ikke brukt -->
+        <serviceCertificate encoded="ENcoded server certificate"/>
+      </add>
+    </clientCredentials>
+  </peppol.certificates>
+</configuration>
