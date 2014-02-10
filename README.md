@@ -44,7 +44,7 @@ This package is built and updated automatically on changes in git.
 
 The NuGet-package adds a "Certificates"-folder and "SampleData"-folder. Change setting Copy to output directory = Copy if newer:
 
-![screenshot copy] (Documentation/screenshotCopy.png)
+![screenshot copy] (Documentation/screenshotCopy.PNG)
 
 ###Install PEPPOL root certificates
 Root-certificates from PEPPOL has to be installed in trusted root certification authorities for certificate-validation to work properly. Root-certificates can be found in the Certificates\Installation\-folder that came with the NuGet-package, or you can download root certificates directly from PEPPOL here:
@@ -232,9 +232,9 @@ If you are testing against a specific endpoint/access point, fill in that server
 ##Error messages
 ###Validation failed. Chain could not be built.
 BuildOK: False ChainOK: False ChainStatus: PartialChainA certificate chain could not be built to a trusted root authority.
-Check that all PEPPOL-root certificates are installed on developer machine or server. Certificates from SMP, SML and other access points are validated against PEPPOLs root-certificates. 
+Check that all PEPPOL-root certificates are installed on developer machine or server. Certificates from SMP, SML and other access points are validated against PEPPOLs root-certificates. It should look like this in trusted root:
 
-![screenshot certificates should look like](Documentation/screenshotRootCert.png)
+![screenshot certificates should look like](Documentation/screenshotRootCert.PNG)
 
 ###Could not open certificate, wrong password? The specified network password is not correct.
 Check that your privateKeystore.pfx password is correct
