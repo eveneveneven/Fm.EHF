@@ -185,11 +185,15 @@ namespace STARTLibrary.src.eu.peppol.start.security.configuration
             if (!File.Exists(filePath))
                 throw new ArgumentException(String.Format("The file \"{0}\" does not exist.", filePath));
 
-            var temp = new X509Certificate2(filePath, password, X509KeyStorageFlags.MachineKeySet |
-              X509KeyStorageFlags.PersistKeySet |
-              X509KeyStorageFlags.Exportable);
-
-            return temp;
+            try
+            {
+                var temp = new X509Certificate2(filePath, password, X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.Exportable);
+                return temp;
+            }
+            catch (System.Security.Cryptography.CryptographicException cryptographicException)
+            {
+                throw new Exception("Could not open certificate, wrong password? " + cryptographicException.Message, cryptographicException);       
+            }
         }
 
         private static string GetAbsolutePath(string filename)

@@ -60,7 +60,6 @@
     </Compile>
     <Compile Include="SMP\SmpInformation.cs" />
     <Compile Include="SMP\SmpLookupException.cs" />
-    <Compile Include="CustomCertificateValidator.cs" />
     <Compile Include="PeppolDocumentType.cs" />
     <Compile Include="UBLVersion.cs" />
     <Compile Include="ValidationResult.cs" />

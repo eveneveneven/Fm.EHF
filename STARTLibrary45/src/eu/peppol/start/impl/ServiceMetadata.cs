@@ -180,7 +180,6 @@ namespace STARTLibrary.src.eu.peppol.start.impl
             }
             else
             {
-                //TODO: Thomas tok vekk sjekk på SMP-sertifikat-sjekk, fikk feilmelding chain could not be built
                 VerifySignature(doc); // process continues as default, throws exception if invalid
                 nextDoc = doc;
             }
@@ -328,21 +327,22 @@ namespace STARTLibrary.src.eu.peppol.start.impl
         {
             var signedXml = new SignedXml(doc);
             XmlElement xmlsignature = doc.GetElementsByTagName("Signature", "http://www.w3.org/2000/09/xmldsig#").Cast<XmlElement>().FirstOrDefault();
+            if (xmlsignature==null)
+                throw new Exception("could not verify signature in xml, signature element was not found in xml.");
+
             signedXml.LoadXml(xmlsignature);
 
             var certificate = signedXml.KeyInfo.Cast<KeyInfoX509Data>().Select(kid => kid.Certificates.Cast<X509Certificate2>().FirstOrDefault()).FirstOrDefault();
 
             if(certificate==null)
                 throw new Exception("could not verify signature in xml, certificate was not set");
+
             smpCertificateValidator.Validate(certificate);
 
             var signatureOk = signedXml.CheckSignature(certificate, true);
-            throw new Exception("Security error:could not verify signature in signed xml. Check certificate");
-
-            //if (certificate == null || !ValidateCertificate(certificate) || !signedXml.CheckSignature(certificate, true))
-            //{
-            //    throw new Exception("There is a security error in processing this request");
-            //}
+           
+            if(!signatureOk)
+                throw new Exception("Security error:could not verify signature in signed xml. Check certificate");
         }
 
         private static readonly CertificateValidator smpCertificateValidator =

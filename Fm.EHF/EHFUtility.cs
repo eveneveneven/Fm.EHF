@@ -520,7 +520,7 @@ namespace Fm.EHF
                 //Slår på custom validator for sertifikatet fra eksternt aksesspunkt:
                 _channelFactory.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = X509CertificateValidationMode.Custom;
                 _channelFactory.Credentials.ServiceCertificate.Authentication.RevocationMode = X509RevocationMode.NoCheck;
-                _channelFactory.Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = new CustomCertificateValidator
+                _channelFactory.Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = new CertificateValidator
                 {
                     ExpectedCertificate = serviceMetadata.Certificate,
                     ExpectedIssuer = CertificateIssuer.AccessPointCA,

@@ -49,6 +49,8 @@ namespace STARTLibrary.src.eu.peppol.start.security.handler
     /// <summary>
     /// CertificateValidator which can be configured to expect either the AP CA
     /// or the SMP CA as issuer.
+    /// 
+    /// Modified by Fylkesmannen to include better error-messages
     /// </summary>
     public class CertificateValidator : CertificateValidatorBase
     {
@@ -91,7 +93,7 @@ namespace STARTLibrary.src.eu.peppol.start.security.handler
     public class CertificateValidatorBase : X509CertificateValidator
     {
         private CertificateValidationThumbprints _thumbprints;
-        private X509RevocationMode _revocationMode = X509RevocationMode.NoCheck; //Thomas endra til nocheck
+        private X509RevocationMode _revocationMode = X509RevocationMode.Online; 
         protected CertificateIssuer _expectedIssuer = CertificateIssuer.AccessPointCA;
         private static readonly ILog Log = LogManager.GetLogger(typeof(CertificateValidator));
 
@@ -203,9 +205,19 @@ namespace STARTLibrary.src.eu.peppol.start.security.handler
                 chain.ChainPolicy.ExtraStore.AddRange(ExtraTrustedIntermediateCertificates);
 
             //Validate chain errors or if it is revoked
-            if (!BuildChain(chain, certificate))
+            try
             {
-                throw new SecurityTokenValidationException("Validation failed. Chain could not be built.");
+                var buildOk = chain.Build(certificate);
+                var chainOk = chain.HasNoError();
+
+                if (!buildOk || !chainOk)
+                {
+                    throw new Exception(string.Format("Validation failed. Chain could not be built. BuildOK: {0} ChainOK: {1} ChainStatus: {2} ", buildOk, chainOk, chain.ChainStatus.Aggregate("Errors in chain: ", (current, asdf) => asdf.Status + asdf.StatusInformation)));
+                }
+            }
+            catch (System.Security.Cryptography.CryptographicException exception)
+            {
+                throw new SecurityTokenValidationException("Validation failed. Chain could not be built." + exception.Message, exception);
             }
 
             // Skip the check for the expected issuer if we are dealing with 
@@ -219,30 +231,7 @@ namespace STARTLibrary.src.eu.peppol.start.security.handler
             {
                 throw new SecurityTokenValidationException("Validation failed. Issued by the wrong CA.");
             }
-        }
-
-        private bool BuildChain(X509Chain chain, X509Certificate2 certificate)
-        {
-            try
-            {
-                //NOTE: Feilmelding "A certificate chain could not be built to a trusted root authority." her ==> installer alle ROOT-certifikat fra PEPPOL i trusted root CA på server
-                
-                var buildOk = chain.Build(certificate);
-                var chainOk = chain.HasNoError();
-
-                if (chain.Build(certificate) && chain.HasNoError())
-                {
-                    return true;
-                }
-
-                Log.ErrorFormat("Certificatevalidation failed. ChainOK: {0}. ValidationErrors: {1}", chainOk, chain.ChainStatus.Aggregate("msg: ", (current, asdf) => current + asdf));
-                return false;
-            }
-            catch (System.Security.Cryptography.CryptographicException)
-            {
-                return false;
-            }
-        }
+        }      
 
         private bool IsExpectedIssuer(X509Chain chain)
         {

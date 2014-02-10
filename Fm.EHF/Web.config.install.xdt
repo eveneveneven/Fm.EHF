@@ -7,14 +7,6 @@
     <section xdt:Locator="Match(name)" xdt:Transform="Insert" name="peppol.certificates" type="STARTLibrary.src.eu.peppol.start.security.configuration.CertificatesConfigurationSection, STARTLibrary45"/>
   </configSections>
   
-  
-  <subscriptionConfiguration xdt:Transform="InsertIfMissing"
-    subscriptionHandler="Fm.Subscription.SendSubscriptionMail, Fm.Subscription"
-    subscriptionMailSubject="Siste nytt"    
-    showUnsubscribeLink="True" 
-    imageThumbnailWidth="100"
-    />
-
   <system.serviceModel xdt:Transform="Insert">
     <diagnostics>
       <messageLogging logEntireMessage="true" logMalformedMessages="true"

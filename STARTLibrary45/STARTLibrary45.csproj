@@ -113,11 +113,11 @@
     <Compile Include="src\eu\peppol\start\security\configuration\ServiceCredentialsConfigurationElement.cs" />
     <Compile Include="src\eu\peppol\start\security\configuration\ValidationConfigurationElement.cs" />
     <Compile Include="src\eu\peppol\start\security\encoder\MixedContentTypeMessageEncoder.cs" />
+    <Compile Include="src\eu\peppol\start\security\handler\CertificateValidator.cs" />
     <Compile Include="src\eu\peppol\start\security\impl\SimpleAccessPointClient.cs" />
     <Compile Include="src\eu\peppol\start\security\handler\AcceptingIssuerNameRegistry.cs" />
     <Compile Include="src\eu\peppol\start\security\handler\AccessPointToken.cs" />
     <Compile Include="src\eu\peppol\start\security\handler\AccessPointTokenHandler.cs" />
-    <Compile Include="src\eu\peppol\start\security\handler\CertificateValidator.cs" />
     <Compile Include="src\eu\peppol\start\xml\parser\ServiceGroupParser.cs" />
     <Compile Include="src\eu\peppol\start\xml\parser\SignedServiceParser.cs" />
     <Compile Include="src\eu\peppol\start\xml\request\StartRequest.cs" />
