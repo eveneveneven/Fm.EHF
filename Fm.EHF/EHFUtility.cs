@@ -95,7 +95,16 @@ namespace Fm.EHF
         private void LoadCertificatesFromConfiguration()
         {
             Log.Info("Loading certificates from config...");
-            var credentials = STARTLibrary.src.eu.peppol.start.security.configuration.CertificatesConfigurationSection.Section.ClientCredentials.ByEndpointName(_peppolEndpointName);
+
+            var section = STARTLibrary.src.eu.peppol.start.security.configuration.CertificatesConfigurationSection.Section;
+
+            if(section==null)
+                throw new Exception("Cannot find configurationsection. Check that peppol.certificates is present in app.config or web.config");
+
+            if(section.ClientCredentials==null)
+                throw new Exception("Cannot find clientCredentials in configurationsection. Check that peppol.certificates.ClientCredentials is present in app.config or web.config");
+
+            var credentials = section.ClientCredentials.ByEndpointName(_peppolEndpointName);
             if (credentials == null)
             {
                 var msg = String.Format("No certificate configuration found for endpoint \"{0}\" in PEPPOL configuration in app.config.", _peppolEndpointName);
